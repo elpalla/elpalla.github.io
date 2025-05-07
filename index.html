@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>razones por las que te amo 💖</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1>💌 Razones por las que te amo 💌</h1>
+    <p id="razon">Presiona el botón para ver una razón.</p>
+    <button onclick="iniciar()">Mostrar otra razón</button>
+
+    <audio id="musica" loop>
+      <source src="REINA.mp3" type="audio/mp3">
+      Tu navegador no soporta el audio HTML5.
+    </audio>
+  </div>
+
+  <script>
+  const razonesOriginales = [
+    "Tu sonrisa ilumina mis días ",
+    "Eres mi persona favorita ",
+    "Contigo todo es mejor ",
+    "Me haces sentir amado ",
+    "Nunca me siento solo cuando estás cerca ",
+    "Eres mi mayor apoyo ",
+    "Tu risa es mi sonido favorito ",
+    "Contigo aprendí qué es el amor verdadero ",
+    "Eres mi hogar ",
+    // Puedes seguir con más...
+  ];
+
+  let razones = [];
+  let indiceActual = 0;
+
+  function barajarRazones() {
+    razones = [...razonesOriginales];
+    for (let i = razones.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [razones[i], razones[j]] = [razones[j], razones[i]];
+    }
+    indiceActual = 0;
+  }
+
+  function mostrarRazon() {
+    if (indiceActual >= razones.length) {
+      barajarRazones(); // Re-baraja cuando se acaban
+    }
+    document.getElementById("razon").innerText = razones[indiceActual];
+    indiceActual++;
+  }
+
+  function iniciar() {
+    if (razones.length === 0) {
+      barajarRazones();
+    }
+    mostrarRazon();
+    const musica = document.getElementById("musica");
+    if (musica.paused) {
+      musica.play().catch(e => {
+        console.log("El navegador bloqueó la reproducción automática.");
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
